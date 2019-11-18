@@ -1,0 +1,46 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project name="Jumper" default="run" basedir=".">
+
+	<property name="src.dir" value="src"/>
+	<property name="build.dir" value="build"/>
+	<property name="lib.dir" value="lib"/>
+	<property name="classes.dir" value="${build.dir}/classes"/>
+	<property name="jar.dir"     value="${build.dir}/jar"/>
+	<property name="main-class" value="JumperRunner"/>
+
+	<!-- 加入编译所需要的包 -->
+	<path id="compile.path">
+		<fileset dir="${lib.dir}">
+			<include name="**/*.jar"/>
+		</fileset>
+
+		<pathelement path="${classes.dir}"/>
+	</path>
+
+	<!-- 清空build文件夹 -->
+	<target name="clean">
+		<delete dir="${build.dir}"/>
+	</target>
+
+	<!-- 编译过程 -->
+	<target name="compile" depends="clean">
+		<mkdir dir="${classes.dir}"/>
+		<javac srcdir="${src.dir}" destdir="${classes.dir}" classpathref="compile.path" includeantruntime="on"/>
+	</target>
+
+	<!-- 打包过程 -->
+	<target name="jar" depends="compile">
+		<mkdir dir="${jar.dir}"/>
+		<jar destfile="${jar.dir}/${ant.project.name}.jar" basedir="${classes.dir}">
+			<manifest>
+				<attribute name="Main-Class" value="${main-class}"/>
+			</manifest>
+		</jar>
+	</target>
+
+	<!-- 运行过程 -->
+	<target name="run" depends="jar">
+		<java classname="${main-class}" classpathref="compile.path" fork="true"/>
+	</target>
+	
+</project>
