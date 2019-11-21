@@ -53,9 +53,13 @@ public class Jumper extends Actor
     public void act()
     {
         if (canMove())
+        {
             move();
+        }
         else
+        {
             turn();
+        }
     }
 
     /**
@@ -78,9 +82,13 @@ public class Jumper extends Actor
         Location temp = loc.getAdjacentLocation(getDirection());
         Location next = temp.getAdjacentLocation(getDirection());
         if (gr.isValid(next))
+        {
             moveTo(next);
+        }
         else
+        {
             removeSelfFromGrid();
+        }
     }
 
     /**
@@ -92,12 +100,16 @@ public class Jumper extends Actor
     {
         Grid<Actor> gr = getGrid();
         if (gr == null)
+        {
             return false;
+        }
         Location loc = getLocation();
         Location temp = loc.getAdjacentLocation(getDirection());
         Location next = temp.getAdjacentLocation(getDirection());
         if (!gr.isValid(next))
+        {
             return false;
+        }
         Actor neighbor = gr.get(next);
         return (neighbor == null) || (neighbor instanceof Flower) || (neighbor instanceof Bug);
         // ok to move into empty location or onto flower
