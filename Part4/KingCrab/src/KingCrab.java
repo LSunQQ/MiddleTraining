@@ -49,9 +49,11 @@ public class KingCrab extends CrabCritter
         {
             int dir = getLocation().getDirectionToward(a.getLocation());
             Location move = a.getLocation().getAdjacentLocation(dir);
-            if (getGrid().isValid(move)) {
+            if (getGrid().isValid(move))
+            {
                 a.moveTo(move);
-            } else {
+            } else
+            {
                 a.removeSelfFromGrid();
             }
         }

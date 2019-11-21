@@ -25,7 +25,7 @@ import java.awt.Color;
 import java.util.ArrayList;
 
 /**
- * This class runs a world that contains chameleon critters. <br />
+ * This class runs a world that contains King crab. <br />
  * This class is not tested on the AP CS A and AB exams.
  */
 public class KingCrabRunner

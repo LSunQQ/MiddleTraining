@@ -35,6 +35,8 @@ public class BlusterCritter extends Critter
 {
 	private int c;
 	private static final double DARKENING_FACTOR = 0.05;
+	private static final int largest = 255;
+	private static final int smallest = 0;
 
 	public BlusterCritter(int _c) {
 		/**
@@ -76,25 +78,52 @@ public class BlusterCritter extends Critter
                 a.removeSelfFromGrid();
             }
         }
-		/**
-		 * darken or lighten the color
-		 */
         Color color = getColor();
         int red, green, blue;
+
         if (actors.size() >= c) {
+        	/**
+			 * darken the color
+			 * if the value is less than
+			 * 0, it should be set to 0
+			 */
             red = (int) (color.getRed() * (1 - DARKENING_FACTOR));
             green = (int) (color.getGreen() * (1 - DARKENING_FACTOR));
             blue = (int) (color.getBlue() * (1 - DARKENING_FACTOR));
-            if (red < 0) red = 0;
-            if (green < 0) green = 0;
-            if (blue < 0) blue = 0;
+            if (red < smallest)
+            {
+            	red = smallest;
+            }
+            if (green < smallest)
+            {
+            	green = smallest;
+            }
+            if (blue < smallest)
+            {
+            	blue = smallest;
+            }
         } else {
+
+			/**
+			 * lighten the color
+			 * if the value is more than
+			 * 255, it should be set to 255
+			 */
             red = (int) (color.getRed() * (1 + DARKENING_FACTOR));
             green = (int) (color.getGreen() * (1 + DARKENING_FACTOR));
             blue = (int) (color.getBlue() * (1 + DARKENING_FACTOR));
-            if (red > 255) red = 255;
-            if (green > 255) green = 255;
-            if (blue > 255) blue = 255;
+            if (red > largest)
+            {
+            	red = largest;
+            }
+            if (green > largest)
+            {
+            	green = largest;
+            }
+            if (blue > largest)
+            {
+            	blue = largest;
+            }
         }
         setColor(new Color(red, green, blue));
     }

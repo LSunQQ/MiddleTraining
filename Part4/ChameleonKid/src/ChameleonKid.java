@@ -39,8 +39,8 @@ public class ChameleonKid extends ModifiedChameleonCritter
 			 * only the front direction and
 			 * the behind direction will be selected
 			 */
-            if (getLocation().getDirectionToward(a.getLocation()) == 0 ||
-                getLocation().getDirectionToward(a.getLocation()) == 180) {
+            if (getLocation().getDirectionToward(a.getLocation()) == Location.AHEAD ||
+                getLocation().getDirectionToward(a.getLocation()) == Location.HALF_CIRCLE) {
                 frontAndbehind.add(a);
             }
         }
