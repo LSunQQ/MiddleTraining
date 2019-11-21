@@ -42,14 +42,18 @@ public class SparseBoundedGrid2<E> extends AbstractGrid<E>
      * @param rows number of rows in SparseBounded
      * @param cols number of columns in SparseBounded
      */
-    public SparseBoundedGrid2(int _rows, int _cols)
+    public SparseBoundedGrid2(int newRow, int newCol)
     {
-        if (_rows <= 0)
+        if (newRow <= 0)
+        {
             throw new IllegalArgumentException("rows <= 0");
-        if (_cols <= 0)
+        }
+        if (newCol <= 0)
+        {
             throw new IllegalArgumentException("cols <= 0");
-        rows = _rows;
-        cols = _cols;
+        }
+        rows = newRow;
+        cols = newCol;
         occupantArray = new HashMap<Location, E>();
     }
 
@@ -83,18 +87,24 @@ public class SparseBoundedGrid2<E> extends AbstractGrid<E>
     public E get(Location loc)
     {
         if (!isValid(loc))
+        {
             throw new IllegalArgumentException("Location " + loc
                     + " is not valid");
+        }
         return occupantArray.get(loc); // unavoidable warning
     }
 
     public E put(Location loc, E obj)
     {
         if (!isValid(loc))
+        {
             throw new IllegalArgumentException("Location " + loc
                     + " is not valid");
+        }
         if (obj == null)
+        {
             throw new NullPointerException("obj == null");
+        }
 
         // Add the object to the grid.
         E oldOccupant = get(loc);
@@ -105,8 +115,10 @@ public class SparseBoundedGrid2<E> extends AbstractGrid<E>
     public E remove(Location loc)
     {
         if (!isValid(loc))
+        {
             throw new IllegalArgumentException("Location " + loc
                     + " is not valid");
+        }
         
         // Remove the object from the grid.
         E r = get(loc);

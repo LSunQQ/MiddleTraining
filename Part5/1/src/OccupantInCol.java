@@ -4,9 +4,9 @@ public class OccupantInCol {
     private Object occupant;
     private int col;
 
-    OccupantInCol(Object _obj, int _col) {
-    	occupant = _obj;
-    	col = _col;
+    OccupantInCol(Object newObject, int newCol) {
+    	occupant = newObject;
+    	col = newCol;
     }
 
     public int getCol() {
@@ -17,11 +17,11 @@ public class OccupantInCol {
     	return occupant;
     }
 
-    public void setCol(int _col) {
-    	col = _col;
+    public void setCol(int newCol) {
+    	col = newCol;
     }
 
-    public void setObj(Object _obj) {
-    	occupant = _obj;
+    public void setObj(Object newObject) {
+    	occupant = newObject;
     }
 }

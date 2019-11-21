@@ -25,7 +25,7 @@ import info.gridworld.grid.Location;
 import java.awt.Color;
 
 /**
- * This class runs a world that contains chameleon critters. <br />
+ * This class runs a world that contains UnBounded Grid 2. <br />
  * This class is not tested on the AP CS A and AB exams.
  */
 public class UnBoundedGrid2Runner

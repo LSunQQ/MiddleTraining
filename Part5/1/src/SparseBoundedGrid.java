@@ -41,14 +41,18 @@ public class SparseBoundedGrid<E> extends AbstractGrid<E>
 	 * @param rows number of rows in SparseBounded
 	 * @param cols number of columns in SparseBounded
 	 */
-	public SparseBoundedGrid(int _rows, int _cols)
+	public SparseBoundedGrid(int newRow, int newCol)
 	{
-		if (_rows <= 0)
+		if (newRow <= 0)
+        {
 			throw new IllegalArgumentException("rows <= 0");
-		if (_cols <= 0)
+        }
+		if (newCol <= 0)
+        {
 			throw new IllegalArgumentException("cols <= 0");
-		rows = _rows;
-		cols = _cols;
+        }
+		rows = newRow;
+		cols = newCol;
 		occupantArray = new ArrayList<LinkedList<OccupantInCol>>(rows);
 		for (int i = 0; i < rows; ++i) {
 			occupantArray.add(new LinkedList<OccupantInCol>());
@@ -91,8 +95,10 @@ public class SparseBoundedGrid<E> extends AbstractGrid<E>
     public E get(Location loc)
     {
         if (!isValid(loc))
+        {
             throw new IllegalArgumentException("Location " + loc
                     + " is not valid");
+        }
         LinkedList<OccupantInCol> occupantList = occupantArray.get(loc.getRow());
         /**
 		 * Check all column in the row list.
@@ -108,10 +114,14 @@ public class SparseBoundedGrid<E> extends AbstractGrid<E>
     public E put(Location loc, E obj)
     {
         if (!isValid(loc))
+        {
             throw new IllegalArgumentException("Location " + loc
                     + " is not valid");
+        }
         if (obj == null)
+        {
             throw new NullPointerException("obj == null");
+        }
 
         // Add the object to the grid.
         E oldOccupant = get(loc);
@@ -123,8 +133,10 @@ public class SparseBoundedGrid<E> extends AbstractGrid<E>
     public E remove(Location loc)
     {
         if (!isValid(loc))
+        {
             throw new IllegalArgumentException("Location " + loc
                     + " is not valid");
+        }
         
         // Remove the object from the grid.
         E r = get(loc);

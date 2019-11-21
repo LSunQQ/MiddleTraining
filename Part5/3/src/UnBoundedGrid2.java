@@ -71,7 +71,9 @@ public class UnBoundedGrid2<E> extends AbstractGrid<E>
                 // If there's an object at this location, put it in the array.
                 Location loc = new Location(r, c);
                 if (get(loc) != null)
+                {
                     theLocations.add(loc);
+                }
             }
         }
         return theLocations;
@@ -80,20 +82,28 @@ public class UnBoundedGrid2<E> extends AbstractGrid<E>
     public E get(Location loc)
     {
         if (!isValid(loc))
+        {
             throw new IllegalArgumentException("Location " + loc
                     + " is not valid");
+        }
         if (loc.getRow() >= size || loc.getCol() >= size)
+        {
             return null;
+        }
         return (E) occupantArray[loc.getRow()][loc.getCol()]; // unavoidable warning
     }
 
     public E put(Location loc, E obj)
     {
         if (!isValid(loc))
+        {
             throw new IllegalArgumentException("Location " + loc
                     + " is not valid");
+        }
         if (obj == null)
+        {
             throw new NullPointerException("obj == null");
+        }
 
         int _size = size;
         /**
@@ -123,8 +133,10 @@ public class UnBoundedGrid2<E> extends AbstractGrid<E>
     public E remove(Location loc)
     {
         if (!isValid(loc))
+        {
             throw new IllegalArgumentException("Location " + loc
                     + " is not valid");
+        }
         
         // Remove the object from the grid.
         E r = get(loc);
