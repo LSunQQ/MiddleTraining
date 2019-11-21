@@ -55,7 +55,6 @@ public class CircleBug extends Bug
         }
         else
         {
-            // turn();
             /**
              * Turn 45 degrees only once.
              */

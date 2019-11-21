@@ -25,17 +25,23 @@ import info.gridworld.actor.Bug;
 public class DancingBug extends Bug
 {
     private int steps;
-    //private int sideLength;
     private int array[];
 
     /**
      * Constructs a dancing bug that traces a square of a given side length
      * @param length the side length
      */
-    public DancingBug(int arr[])
+    public DancingBug(int[] arr)
     {
         steps = 0;
-        array = arr;
+        if (null != arr)
+        {
+            array = arr;
+        }
+        else
+        {
+            arry = new int[0];
+        }
     }
 
     /**
@@ -60,7 +66,9 @@ public class DancingBug extends Bug
              * so that the dancing bug continually repeats the same turning pattern.
              */
             if (steps == array.length)
+            {
                 steps = 0;
+            }
         }
         else
         {

@@ -22,7 +22,7 @@ import info.gridworld.grid.Location;
 import java.awt.Color;
 
 /**
- * This class runs a world that contains box bugs. <br />
+ * This class runs a world that contains spiral bugs. <br />
  * This class is not tested on the AP CS A and AB exams.
  */
 public class SpiralBugRunner
