@@ -36,12 +36,9 @@ public class DancingBug extends Bug
         steps = 0;
         if (null != arr)
         {
-            array = arr;
+            array = arr.clone();
         }
-        else
-        {
-            arry = new int[0];
-        }
+
     }
 
     /**
