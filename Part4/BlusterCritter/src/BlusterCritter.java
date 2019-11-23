@@ -57,12 +57,12 @@ public class BlusterCritter extends Critter
 		 * find the edge within two steps of the location
 		 */
 		int up = (row - 2 > 0) ? (row - 2) : 0;
-		int down = (row + 2 > getGrid().getNumRows()) ? grid.getNumRows() : (row + 2);
+		int down = (row + 2 >= getGrid().getNumRows()) ? grid.getNumRows() - 1 : (row + 2);
 		int left = (col - 2 > 0) ? (col - 2) : 0;
-		int right = (col + 2 > getGrid().getNumCols()) ? grid.getNumCols() : (col + 2);
+		int right = (col + 2 >= getGrid().getNumCols()) ? grid.getNumCols() - 1 : (col + 2);
 
-		for (int i = up; i < down; ++i) {
-			for (int j = left; j < right; ++j) {
+		for (int i = up; i <= down; ++i) {
+			for (int j = left; j <= right; ++j) {
 				if (grid.get(new Location(i, j)) != null) {
 					actors.add(grid.get(new Location(i, j)));
 				}
@@ -73,15 +73,20 @@ public class BlusterCritter extends Critter
 
     public void processActors(ArrayList<Actor> actors)
     {
+        int size = 0;
         for (Actor a: actors) {
             if (!(a instanceof Rock) && !(a instanceof Critter)) {
                 a.removeSelfFromGrid();
+            }
+            if (a instanceof Critter)
+            {
+                ++size;
             }
         }
         Color color = getColor();
         int red, green, blue;
 
-        if (actors.size() >= c) {
+        if (size >= c) {
         	/**
 			 * darken the color
 			 * if the value is less than

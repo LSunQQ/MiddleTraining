@@ -34,7 +34,8 @@ public class BlusterCritterRunner
         ActorWorld world = new ActorWorld();
         BlusterCritter alice = new BlusterCritter(2);
         alice.setColor(Color.ORANGE);
-        BlusterCritter bob = new BlusterCritter(3);
+        BlusterCritter bob = new BlusterCritter(1);
+        bob.setColor(Color.GREEN);
         Flower ff = new Flower(Color.GREEN);
         Flower ff2 = new Flower(Color.BLUE);
 
