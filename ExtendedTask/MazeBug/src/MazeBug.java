@@ -1,5 +1,3 @@
-//package info.gridworld.maze;
-
 import info.gridworld.actor.Actor;
 import info.gridworld.actor.Bug;
 import info.gridworld.actor.Flower;
@@ -57,10 +55,19 @@ public class MazeBug extends Bug {
 			move();
 			//increase step count when move 
 			stepCount++;
+
+			/*
+			 * add the present position
+			 * to the last position as a path
+			 */
 			ArrayList<Location> lastLocation = crossLocation.pop();
 			lastLocation.add(getLocation());
 			crossLocation.push(lastLocation);
 
+			/*
+			 * add the present position
+			 * to the list as a new path
+			 */
 			ArrayList<Location> presentLocation = new ArrayList<Location>();
 			presentLocation.add(getLocation());
 			crossLocation.push(presentLocation);
@@ -71,6 +78,10 @@ public class MazeBug extends Bug {
 					ArrayList<Location> lastLocation = crossLocation.peek();
 					last = lastLocation.get(0);
 
+					/*
+					 * find the last path and reduce the probability
+					 * of the last direction
+					 */
 					int tempDirection = getLocation().getDirectionToward(last);
 					setDirection(tempDirection);
 					int lessProbability = tempDirection / 90 + 2;
@@ -99,12 +110,20 @@ public class MazeBug extends Bug {
 		if (gr == null) {
 			return null;
 		}
+		/*
+		 * judge whether the four direction(North, 
+		 * East, South, West) is valid.
+		 */
 		ArrayList<Location> valid = new ArrayList<Location>();
 		for (int i = 0; i < 4; ++i) {
 			Location tempLocation = loc.getAdjacentLocation(getDirection() + i * 90);
 
 			if (gr.isValid(tempLocation)) {
 				Actor actor = gr.get(tempLocation);
+				/*
+				 * if it is the red rock,
+				 * it means that it has move the terminal
+				 */
 				if (actor instanceof Rock && actor.getColor().equals(Color.RED)) {
 					isEnd = true;
 					valid.add(tempLocation);
@@ -137,6 +156,11 @@ public class MazeBug extends Bug {
 		if (validLocations.size() != 0) {
 			ArrayList<Location> tempLocations = new ArrayList<Location>();
 			for (int i = 0; i < validLocations.size(); ++i) {
+				/*
+				 * if it is the rock, it needn't choose other position,
+				 * because it is the terminal.
+				 * else it should choose the best position of them
+				 */
 				if (grid.get(validLocations.get(i)) instanceof Rock) {
 					next = validLocations.get(i);
 					return true;
@@ -154,6 +178,12 @@ public class MazeBug extends Bug {
 	 * Choose the best location to move.
 	 */
 	public Location chooseLocation(ArrayList<Location> tempLocations) {
+		/*
+		 * if there is only one valid position,
+		 * return it.
+		 * else it should choose the best one
+		 * according to the probability
+		 */
 		if (tempLocations.size() == 1) {
 			return tempLocations.get(0);
 		} else {
@@ -161,18 +191,37 @@ public class MazeBug extends Bug {
 			Location bestLocation = null;
 			Location [] tempDirection = new Location[4];
 			boolean [] hasDirection = new boolean[4];
+
+			/*
+			 * count the sum of the probabilities of the four
+			 * direction and initial the array hasDirection which
+			 * use to judge whether there is the direction in the
+			 * ArrayList tempLocations
+			 */
 			for (int i = 0; i < 4; ++i) {
 				sumOfProbability += directionProbability[i];
 				hasDirection[i] = false;
 			}
+
+			/*
+			 * count the direction of the position
+			 * in the ArrayList tempLocations
+			 */
 			for (int i = 0; i < tempLocations.size(); ++i) {
 				int presentDirection = getLocation().getDirectionToward(tempLocations.get(i)) / 90;
 				hasDirection[presentDirection] = true;
 				tempDirection[presentDirection] = tempLocations.get(i);
 			}
 
+			/*
+			 * Randomly choose the location
+			 * according to the probability
+			 */
 			int randomDirection = (int) (Math.random() * sumOfProbability);
 			int tempProbability = 0;
+			/*
+			 * choose the best location
+			 */
 			for (int i = 0; i < 4; ++i) {
 				tempProbability += directionProbability[i];
 				if (randomDirection < tempProbability && hasDirection[i]) {
@@ -180,6 +229,12 @@ public class MazeBug extends Bug {
 					break;
 				}
 			}
+
+			/*
+			 * if could not choose the best location
+			 * according to the algorithm above, choose
+			 * the position that has the highest probability
+			 */
 			if (bestLocation == null) {
 				int maxProbability = 0;
 				int temp = 0;
@@ -209,6 +264,10 @@ public class MazeBug extends Bug {
 		if (gr.isValid(next)) {
 			int moveDirection = getLocation().getDirectionToward(next);
 			setDirection(moveDirection);
+			/*
+			 * increase the probability of the 
+			 * position moving to.
+			 */
 			++directionProbability[moveDirection / 90];
 			moveTo(next);
 		} else {

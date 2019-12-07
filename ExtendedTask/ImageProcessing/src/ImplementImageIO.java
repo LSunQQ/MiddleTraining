@@ -111,6 +111,10 @@ public class ImplementImageIO implements IImageIO {
                     inputStream.read(blueByte, 0, 1);
                     inputStream.read(greenByte, 0, 1);
                     inputStream.read(redByte, 0, 1);
+                    /*
+                     * get the pix of the red,
+                     * blue and green color.
+                     */
                     Color newColors = new Color(getInfo(redByte, imageColorSize),
                                                 getInfo(greenByte, imageColorSize),
                                                 getInfo(blueByte, imageColorSize));
@@ -132,8 +136,16 @@ public class ImplementImageIO implements IImageIO {
 
     public Image myWrite(Image image, String filePath) throws IOException {
         try {
+            /*
+             * use the buffered image to output 
+             * the image.
+             */
             BufferedImage outputImage = new BufferedImage(image.getWidth(null), image.getHeight(null), BufferedImage.TYPE_INT_RGB);
             outputImage.getGraphics().drawImage(image, 0, 0, null);
+            
+            /*
+             * set the output file path
+             */
             File imageFile = new File(filePath + ".bmp");
             ImageIO.write(outputImage, "bmp", imageFile);
             return image; 

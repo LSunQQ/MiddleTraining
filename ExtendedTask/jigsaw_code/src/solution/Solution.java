@@ -50,11 +50,17 @@ public class Solution extends Jigsaw {
         Set<JigsawNode> visitedList = new HashSet<JigsawNode>(1000);
         int searchedNodesNum = 0;
 
-        // Jigsaw(bNode, eNode);
+        /*
+         * initial the begin node
+         * and the end node
+         */
         this.setBeginJNode(bNode);
         this.setEndJNode(eNode);
         exploreList.add(this.getBeginJNode());
         while (!exploreList.isEmpty()) {
+            /*
+             * search until the explore list is empty
+             */
             ++searchedNodesNum;
             this.currentJNode = exploreList.remove();
             if (this.currentJNode.equals(getEndJNode())) {
@@ -67,6 +73,12 @@ public class Solution extends Jigsaw {
                 new JigsawNode(this.currentJNode), new JigsawNode(this.currentJNode)
             };
 
+            /*
+             * move the present node to the four position
+             * if the position is valid and
+             * if the node has not been visited,
+             * add it into the explore list
+             */
             for (int i = 0; i < 4; ++i) {
                 if (nextNodes[i].move(i) && !visitedList.contains(nextNodes[i])) {
                     visitedList.add(nextNodes[i]);
@@ -75,6 +87,9 @@ public class Solution extends Jigsaw {
             }
         }
 
+        /*
+         * output the result
+         */
         System.out.println("Jigsaw Completed");
         System.out.println("Begin state:" + this.getBeginJNode().toString());
         System.out.println("End state:" + this.getEndJNode().toString());
@@ -121,6 +136,9 @@ public class Solution extends Jigsaw {
             }
         }
 
+        /*
+         * adjust the ratio of the three factors
+         */
         int allEstimate = 4 * allDistance + 1 * wrongPlace + 1 * s;
         jNode.setEstimatedValue(allEstimate);
     }

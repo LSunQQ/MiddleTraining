@@ -36,12 +36,21 @@ public class ImageProcessorTest {
 
     @Test
     public void testIO() {
+        /*
+         * test whether the height, width
+         * and the pix after using the function
+         * myRead to read the original photo
+         */
         checkSizeAndPix(file1, file1, 0);
         checkSizeAndPix(file2, file2, 0);
     }
 
     @Test
     public void testChanels() {
+        /*
+         * test whether the photo that
+         * after processing is right
+         */
         checkSizeAndPix(file1, red1, 1);
         checkSizeAndPix(file2, red2, 1);
 
@@ -64,6 +73,9 @@ public class ImageProcessorTest {
             Image testImage = testInput.myRead(testFile);
             ImplementImageProcessor testProcessor = new ImplementImageProcessor();
 
+            /*
+             * get the chanel of the photo
+             */
             if (mode == 1) {
                 testImage = testProcessor.showChanelR(testImage);
             } else if (mode == 2) {
@@ -74,11 +86,20 @@ public class ImageProcessorTest {
                 testImage = testProcessor.showGray(testImage);
             }
 
+            /*
+             * judge whether the height and the width
+             * is the same
+             */
             assertEquals(testImage.getHeight(null), standardImage.getHeight(null));
             assertEquals(testImage.getHeight(null), standardImage.getHeight(null));
 
             BufferedImage testBufferedImage = new BufferedImage(testImage.getWidth(null), testImage.getHeight(null), BufferedImage.TYPE_INT_RGB);
             testBufferedImage.getGraphics().drawImage(testImage, 0, 0, null);
+            
+            /*
+             * judge whether each pix is the same
+             * as the file read with the java api
+             */
             for (int i = 0; i < testBufferedImage.getHeight(); ++i) {
                 for (int j = 0; j < testBufferedImage.getWidth(); ++j) {
                     assertEquals(testBufferedImage.getRGB(j, i), standardImage.getRGB(j, i));
